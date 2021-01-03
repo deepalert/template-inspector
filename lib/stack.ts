@@ -27,6 +27,7 @@ export interface Property extends cdk.StackProps {
 // TODO: Rename InspectorStack to your stack name
 export class InspectorStack extends cdk.Stack {
   readonly inspector: lambda.Function;
+  readonly deadLetterQueue: sqs.Queue;
 
   constructor(scope: cdk.Construct, id: string, props: Property) {
     super(scope, id, props);
@@ -42,9 +43,15 @@ export class InspectorStack extends cdk.Stack {
     }
 
     // Setup task SNS topic and SQS queue
+    this.deadLetterQueue = new sqs.Queue(this, 'DeadLetterQueue')
+
     const taskQueueTimeout = cdk.Duration.seconds(30);
     const taskQueue = new sqs.Queue(this, 'taskQueue', {
       visibilityTimeout: taskQueueTimeout,
+      deadLetterQueue: {
+        maxReceiveCount: 3,
+        queue: this.deadLetterQueue,
+      },
     });
     const taskTopic = (props.taskTopic) ? props.taskTopic : sns.Topic.fromTopicArn(this, 'taskTopic', props.taskTopicARN!);
     taskTopic.addSubscription(new SqsSubscription(taskQueue));
