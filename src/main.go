@@ -19,7 +19,7 @@ func Handler(ctx context.Context, attr deepalert.Attribute) (*deepalert.TaskResu
 
 func main() {
 	golambda.Start(func(event golambda.Event) (interface{}, error) {
-		bodies, err := event.DecapSQSBody()
+		bodies, err := event.DecapSNSonSQSMessage()
 		if err != nil {
 			return nil, err
 		}
