@@ -6,18 +6,21 @@ import (
 
 	"github.com/deepalert/deepalert"
 	"github.com/deepalert/deepalert/inspector"
-	main "github.com/deepalert/template-inspector/src"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
+
+	main "github.com/deepalert/template-inspector/src"
 )
 
 func TestInspectorExample(t *testing.T) {
 	attrURL := "https://sqs.ap-northeast-1.amazonaws.com/123456789xxx/attribute-queue"
 	findingURL := "https://sqs.ap-northeast-1.amazonaws.com/123456789xxx/content-queue"
 
+	hdlr := &main.Handler{}
+
 	args := inspector.Arguments{
 		Context:         context.Background(),
-		Handler:         main.Handler,
+		Handler:         hdlr.Callback,
 		Author:          "blue",
 		AttrQueueURL:    attrURL,
 		FindingQueueURL: findingURL,

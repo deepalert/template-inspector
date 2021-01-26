@@ -11,10 +11,11 @@ import (
 
 var logger = golambda.Logger
 
-// Handler is exported for main_test
-func Handler(ctx context.Context, attr deepalert.Attribute) (*deepalert.TaskResult, error) {
+type handler struct{}
+
+func (x *handler) Callback(ctx context.Context, attr deepalert.Attribute) (*deepalert.TaskResult, error) {
 	// TODO: Write your inspection logic
-	return &deepalert.TaskResult{}, nil
+	return nil, nil
 }
 
 func main() {
@@ -33,11 +34,13 @@ func main() {
 			tasks = append(tasks, &task)
 		}
 
+		hdlr := &handler{}
+
 		logger.With("tasks", tasks).Info("Start inspection")
 		if err := inspector.Start(inspector.Arguments{
 			Context: event.Ctx,
 			Tasks:   tasks,
-			Handler: Handler,
+			Handler: hdlr.Callback,
 			// TODO: Fill Author to your inspector name
 			Author:          "???",
 			FindingQueueURL: os.Getenv("FINDING_QUEUE_URL"),
