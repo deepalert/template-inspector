@@ -22,6 +22,11 @@ export interface Property extends cdk.StackProps {
   // Set either one:
   attributeQueue?: sqs.IQueue;
   attributeQueueARN?: string;
+
+  // Optional properties
+  sentryDsn?: string;
+  sentryEnv?: string;
+  logLevel?: string;
 }
 
 // TODO: Rename InspectorStack to your stack name
@@ -87,6 +92,10 @@ export class InspectorStack extends cdk.Stack {
       environment: {
         FINDING_QUEUE_URL: findingQueue.queueUrl,
         ATTRIBUTE_QUEUE_URL: attributeQueue.queueUrl,
+
+        SENTRY_DSN: props.sentryDsn || "",
+        SENTRY_ENVIRONMENT: props.sentryEnv || "",
+        LOG_LEVEL: props.logLevel || "",
       },
     });
   }
