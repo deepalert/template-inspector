@@ -1,5 +1,5 @@
 {
-  "name": "@deepalert/inspector",
+  "name": "@deepalert/FIXME_change_nodejs_module_name",
   "version": "0.1.0",
   "scripts": {
     "build": "tsc",

@@ -8,7 +8,8 @@ import { SqsSubscription } from '@aws-cdk/aws-sns-subscriptions';
 
 import * as path from 'path';
 
-export interface Property extends cdk.StackProps {
+// FIXME: Rename InspectorProperty according to your stack name
+export interface InspectorProperty extends cdk.StackProps {
   lambdaRoleARN?: string;
 
   // Set either one:
@@ -29,12 +30,12 @@ export interface Property extends cdk.StackProps {
   logLevel?: string;
 }
 
-// TODO: Rename InspectorStack to your stack name
+// FIXME: Rename InspectorStack to your stack name
 export class InspectorStack extends cdk.Stack {
   readonly inspector: lambda.Function;
   readonly deadLetterQueue: sqs.Queue;
 
-  constructor(scope: cdk.Construct, id: string, props: Property) {
+  constructor(scope: cdk.Construct, id: string, props: InspectorProperty) {
     super(scope, id, props);
     // Validate input properties
     if (props.taskTopic === undefined && props.taskTopicARN === undefined) {

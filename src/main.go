@@ -14,7 +14,7 @@ var logger = golambda.Logger
 type handler struct{}
 
 func (x *handler) Callback(ctx context.Context, attr deepalert.Attribute) (*deepalert.TaskResult, error) {
-	// TODO: Write your inspection logic
+	// FIXME: Write your inspection logic
 	return nil, nil
 }
 
@@ -41,7 +41,7 @@ func main() {
 			Context: event.Ctx,
 			Tasks:   tasks,
 			Handler: hdlr.Callback,
-			// TODO: Fill Author to your inspector name
+			// FIXME: Fill Author to your inspector name
 			Author:          "???",
 			FindingQueueURL: os.Getenv("FINDING_QUEUE_URL"),
 			AttrQueueURL:    os.Getenv("ATTRIBUTE_QUEUE_URL"),

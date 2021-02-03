@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/require"
 
+	// FIXME: Rename main module path
 	main "github.com/deepalert/template-inspector/src"
 )
 
@@ -32,7 +33,7 @@ func TestInspectorExample(t *testing.T) {
 
 		task := &deepalert.Task{
 			ReportID: deepalert.ReportID(uuid.New().String()),
-			// TODO: Add attribute to be inspected
+			// FIXME: Add attribute to be inspected
 			Attribute: &deepalert.Attribute{
 				// Example:
 				Type:  deepalert.TypeIPAddr,

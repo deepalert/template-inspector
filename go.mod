@@ -1,4 +1,4 @@
-// TODO: Rename module path to your repository
+// FIXME: Rename module path to your repository
 module github.com/deepalert/template-inspector
 
 go 1.15
